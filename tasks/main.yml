@@ -1,0 +1,32 @@
+---
+- name: Install dependencies
+  ansible.builtin.yum:
+    name:
+      - git
+      - nginx
+    state: present
+  become: true
+
+- name: Clone Lighthouse repository
+  ansible.builtin.git:
+    repo: "{{ lighthouse_repo_url }}"
+    dest: "{{ lighthouse_install_dir }}"
+    version: "{{ lighthouse_version }}"
+  become: true
+
+- name: Create nginx config for Lighthouse
+  ansible.builtin.template:
+    src: lighthouse.conf.j2
+    dest: /etc/nginx/conf.d/lighthouse.conf
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+  notify: Restart nginx
+
+- name: Ensure nginx is started and enabled
+  ansible.builtin.systemd:
+    name: nginx
+    state: started
+    enabled: true
+  become: true

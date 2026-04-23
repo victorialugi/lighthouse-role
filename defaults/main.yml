@@ -1,0 +1,5 @@
+---
+lighthouse_version: "0.3.0"
+lighthouse_repo_url: "https://github.com/VKCOM/lighthouse.git"
+lighthouse_install_dir: "/opt/lighthouse"
+lighthouse_nginx_config: true
