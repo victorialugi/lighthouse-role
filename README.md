@@ -27,6 +27,7 @@
   hosts: lighthouse
   roles:
     - lighthouse-role
+```
 
 ## License
 
